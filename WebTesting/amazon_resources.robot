@@ -19,13 +19,15 @@ Fechar o Navegador
     Capture Page Screenshot    
     Close Browser
 
+
+#  ======== TESTES PROCEDURAIS   ======== 
 Acessar a home page do site Amazon.com.br
     [Documentation]  UTILIZADA EM:    Caso de Teste 01 - Acesso ao menu "Eletrônicos
 ...                                   Caso de Teste 02 - Pesquisa de um Produto
     Go To   url=${URL}
     Wait Until Element Is Visible    locator=${MENU_ELETRONICOS}
 
-Entrar no menu "Eletrônicos"
+Entrar no menu ${ELETRONICOS}
     [Documentation]  UTILIZADA EM:    Caso de Teste 01 - Acesso ao menu "Eletrônicos
     Click Element    locator=${MENU_ELETRONICOS}
 
@@ -51,8 +53,23 @@ Clicar no botão de pesquisa
     [Documentation]   UTILIZADA EM:    Caso de Teste 02 - Acesso ao menu "Eletrônicos
     Click Element    locator=nav-search-submit-button
     
-Veirificar o resultado da pesquisa, listando o produto ${NOME_PRODUTO} pesquisado
+Veirificar o resultado da pesquisa, listando o produto "${NOME_PRODUTO}" pesquisado
     [Documentation]   UTILIZADA EM:    Caso de Teste 02 - Acesso ao menu "Eletrônicos
     Wait Until Element Contains    locator=//span[contains(.,'${NOME_PRODUTO}')]    text=${NOME_PRODUTO}
     
-    
+#  ======== TESTES GHERKIN BDD   ======== 
+Dado que estou na home page da Amazon.com.br
+    Acessar a home page do site Amazon.com.br
+    Verificar se o título da página fica "Amazon.com.br | Tudo pra você, de A a Z."
+
+Quando acessar o menu "Eletrônicos"
+    Entrar no menu "Eletrônicos"
+
+Então o título da página deve ficar "Eletrônicos e Tecnologia | Amazon.com.br"
+    Verificar se o título da página fica "Eletrônicos e Tecnologia | Amazon.com.br"
+
+ E o texto "Eletrônicos e Tecnologia" deve ser exibido na página
+    Verificar se aparece a frase "Eletrônicos e Tecnologia"
+
+E a categoria "Computadores e Informática" deve ser exibida na página
+    Verificar se aparece a categoria "Computadores e Informática"
