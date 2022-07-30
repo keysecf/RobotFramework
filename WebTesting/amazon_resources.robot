@@ -7,13 +7,16 @@ ${MENU_ELETRONICOS}      //a[@href='/Eletronicos-e-Tecnologia/b/?ie=UTF8&node=16
 ${HEADER_ELETRONICOS}    //h1[contains(.,'Eletrônicos e Tecnologia')]
 
 *** Keywords ***
+# SETUP
 Abrir o Navegador
     Open Browser    browser=chrome
     Maximize Browser Window
 
+# TEARDOWN
 Fechar o Navegador
     Close Browser
 
+# Caso de Teste 01 - Lista de Keywords:
 Acessar a home page do site Amazon.com.br
     Go To   url=${URL}
     Wait Until Element Is Visible    locator=${MENU_ELETRONICOS}
