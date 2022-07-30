@@ -15,6 +15,7 @@ Abrir o Navegador
 
 Fechar o Navegador
     [Documentation]  UTILIZADA EM:    Test Teardown
+    Capture Page Screenshot    
     Close Browser
 
 Acessar a home page do site Amazon.com.br
@@ -40,15 +41,17 @@ Verificar se aparece a categoria "${NOME_CATEGORIA}"
     [Documentation]   UTILIZADA EM:    Caso de Teste 01 - Acesso ao menu "Eletrônicos
     Element Should Be Visible    locator=//a[@aria-label='${NOME_CATEGORIA}']
 
-Digitar o nome de produto "${NOME_PRODUTO}" no campo de pesquisa
+Digitar o nome de produto "${PRODUTO}" no campo de pesquisa
     [Documentation]   UTILIZADA EM:    Caso de Teste 02 - Acesso ao menu "Eletrônicos
-    Element Should Be Visible    locator=//input[contains(@aria-label,'Pesquisa')]
-    Input Text    locator=//input[contains(@aria-label,'Pesquisa')]    text=${NOME_PRODUTO}
+    Element Should Be Visible    locator=twotabsearchtextbox
+    Input Text    locator=twotabsearchtextbox    text=${PRODUTO}
 
 Clicar no botão de pesquisa
     [Documentation]   UTILIZADA EM:    Caso de Teste 02 - Acesso ao menu "Eletrônicos
-    Click Element    locator=//input[contains(@type,'submit')]
+    Click Element    locator=nav-search-submit-button
     
-Veirificar o resultado da pesquisa, listando o ${NOME_PRODUTO} pesquisado
+Veirificar o resultado da pesquisa, listando o produto ${NOME_PRODUTO} pesquisado
     [Documentation]   UTILIZADA EM:    Caso de Teste 02 - Acesso ao menu "Eletrônicos
-    Element Should Contain    locator=//span[contains(.,'${NOME_PRODUTO}')]    expected=${NOME_PRODUTO}
+    Wait Until Element Contains    locator=//span[contains(.,'${NOME_PRODUTO}')]    text=${NOME_PRODUTO}
+    
+    

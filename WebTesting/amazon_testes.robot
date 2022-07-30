@@ -3,7 +3,7 @@
 Documentation    Essa suíte testa o site da Amazon.com.br
 Resource         amazon_resources.robot
 Test Setup       Abrir o Navegador
-# Test Teardown    Fechar o Navegador    
+Test Teardown    Fechar o Navegador    
 
 *** Test Cases ***
 
@@ -25,4 +25,4 @@ Caso de Teste 02 - Pesquisa de um Produto
     Acessar a home page do site Amazon.com.br
     Digitar o nome de produto "Xbox Series S" no campo de pesquisa
     Clicar no botão de pesquisa
-    Veirificar o resultado da pesquisa, listando o "Xbox Series S" pesquisado
+    Veirificar o resultado da pesquisa, listando o produto "Xbox Series S" pesquisado
