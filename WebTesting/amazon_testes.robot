@@ -1,7 +1,14 @@
+*** Settings ***
+
+Documentation    Essa suíte testa o site da Amazon.com.br
+Test Setup       Abrir o Navegador
+Test Teardown    Fechar o Navegador    
+
 *** Test Cases ***
+
 Caso de Testes 01 - Acesso ao menu "Eletrônicos
     [Documentation]    Esse teste verifica o menu Eletrônicos do site da Amazon.com.br
-    ...    e verifica a categproa Computadores e Informática
+    ...                e verifica a categproa Computadores e Informática
     [Tags]             menus    categorias
     Acessar a home page do site Amazon.com.br
     Entrar no menu "Eletrônicos"
