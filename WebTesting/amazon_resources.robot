@@ -1,6 +1,8 @@
 *** Settings ***
 Library    SeleniumLibrary
 
+*** Variables ***
+${URL}    https://www.amazon.com.br/
 
 
 *** Keywords ***
@@ -11,4 +13,4 @@ Fechar o Navegador
     Close Browser
 
 Acessar a home page do site Amazon.com.br
-    Go To    https://www.amazon.com.br/
+    Go To   url=${URL}
