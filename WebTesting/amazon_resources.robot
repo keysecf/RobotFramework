@@ -2,6 +2,7 @@
 Library    SeleniumLibrary
 
 *** Variables ***
+${BROWSER}               chrome 
 ${URL}                   https://www.amazon.com.br/
 ${MENU_ELETRONICOS}      //a[@href='/Eletronicos-e-Tecnologia/b/?ie=UTF8&node=16209062011&ref_=nav_cs_electronics'][contains(.,'Eletrônicos')]
 ${HEADER_ELETRONICOS}    //h1[contains(.,'Eletrônicos e Tecnologia')]
@@ -10,7 +11,7 @@ ${HEADER_ELETRONICOS}    //h1[contains(.,'Eletrônicos e Tecnologia')]
 
 Abrir o Navegador
     [Documentation]  UTILIZADA EM:    Test Setup    
-    Open Browser    browser=chrome
+    Open Browser    browser=${BROWSER}
     Maximize Browser Window
 
 Fechar o Navegador
