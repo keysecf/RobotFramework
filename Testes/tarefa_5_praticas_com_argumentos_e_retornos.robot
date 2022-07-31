@@ -1,51 +1,42 @@
 *** Settings ***
-Documentation   TAREFA 4 - PRATICAS COM DICIONÁRIOS
-...    **Instruções da tarefa**
-...    1. Crie um arquivo de teste novo;
-...    2. Crie uma variável do tipo DICIONÁRIO na seção de variáveis globais que contenha nela os meses do ano e, para cada mês, informe o número de dias desse mês;
-...    3. Crie um teste que imprima no Console (Log To Console) cada mês e a sua respectiva quantidade de dias.
-...    4. Rode os testes e confira se logou tudo certinho!
-
+Documentation   
+...        **Instruções da tarefa**
+...    1. um arquivo de teste novo;
+...    2. Cria uma nova keyword, onde ela nos produzirá um e-mail customizado com as seguintes regras:
+...      - Essa **keyword** deve receber por argumento o **nome** e **sobrenome** de uma pessoa
+...      - Essa **keyword** deve gerar **uma palavra aleatória** que será usada na composição do e-mail(DICA: olhe na documentação da **Library String** ou **Library Faker** para achar uma keyword que gere essa palavra aleatória)
+...      - Junte o **nome + sobrenome + palavra aleatória + @testerobot.com** e retorne esse e-mail montado ao final da keyword. **Exemplo: MayFernandesWedd34Dd@testerobot.com**
+...    3. Crie um teste que vai chamar essa keyword, passar os argumentos esperados e armazenar o valor retornado em uma nova variável simples;
+...    4. Faça um Log To Console para imprimir essa variável simples.
+Library         String
 
 *** Variable ***
 
+${NOME}              Keyse
+${SOBRENOME}         Carvalho 
 
-&{JANEIRO}      descricao_mes=JANEIRO        quantidade_de_dias=31
-&{FEVEREIRO}    descricao_mes=FEVEREIRO      quantidade_de_dias=28
-&{MARCO}        descricao_mes=MARÇO          quantidade_de_dias=31
-&{ABRIL}        descricao_mes=ABRIL          quantidade_de_dias=30
-&{MAIO}         descricao_mes=MAIO           quantidade_de_dias=31
-&{JUNHO}        descricao_mes=JUNHO          quantidade_de_dias=30
-&{JULHO}        descricao_mes=JULHO          quantidade_de_dias=31
-&{AGOSTO}       descricao_mes=AGOSTO         quantidade_de_dias=31
-&{SETMEBRO}     descricao_mes=SETEMBRO       quantidade_de_dias=30
-&{OUTUBRO}      descricao_mes=OUTUBRO        quantidade_de_dias=31
-&{NOVEMBRO}     descricao_mes=NOVEMBRO       quantidade_de_dias=30
-&{DEZEMBRO}     descricao_mes=DEZEMBRO       quantidade_de_dias=31
-                
+
 *** Test Cases ***
 
-IMPRIMIR TODOS OS MESES E QUANTIDADE DE DIAS RESPECTIVOS DO ANO:
-    Imprimir meses do ano
-
+GERAÇÃO DE E-MAIL:
+    Dado que é informado o "${NOME}" e "${SOBRENOME}" de uma pessoa
+    Quando concatenado "${NOME}" e "${SOBRENOME}" com a palavra gerada randomicamente
+    Então é gerado um "${EMAIL}" automatico
 
 *** Keywords ***
 
-Imprimir meses do ano
+Dado que é informado o "${NOME}" e "${SOBRENOME}" de uma pessoa
     Log To Console    ${\N}
-    Log To Console    ${JANEIRO.descricao_mes} - ${JANEIRO.quantidade_de_dias}    
-    Log To Console    ${FEVEREIRO.descricao_mes} - ${FEVEREIRO.quantidade_de_dias}    
-    Log To Console    ${MARCO.descricao_mes} - ${MARCO.quantidade_de_dias}    
-    Log To Console    ${ABRIL.descricao_mes} - ${ABRIL.quantidade_de_dias}    
-    Log To Console    ${MAIO.descricao_mes} - ${MAIO.quantidade_de_dias}    
-    Log To Console    ${JUNHO.descricao_mes} - ${JUNHO.quantidade_de_dias}
-    Log To Console    ${JULHO.descricao_mes} - ${JULHO.quantidade_de_dias}    
-    Log To Console    ${AGOSTO.descricao_mes} - ${AGOSTO.quantidade_de_dias}    
-    Log To Console    ${SETMEBRO.descricao_mes} - ${SETMEBRO.quantidade_de_dias}
-    Log To Console    ${OUTUBRO.descricao_mes} - ${OUTUBRO.quantidade_de_dias}    
-    Log To Console    ${NOVEMBRO.descricao_mes} - ${NOVEMBRO.quantidade_de_dias}    
-    Log To Console    ${DEZEMBRO.descricao_mes} - ${DEZEMBRO.quantidade_de_dias}    
-    
-    
+    Log To Console    Nome Recebido: ${NOME}
+    Log To Console    Sobrenome Recebido: ${SOBRENOME}
+   
+Quando concatenado "${NOME}" e "${SOBRENOME}" com a palavra gerada randomicamente
+    ${PALAVRA_RANDON}     Generate Random String
+    # ${EMAIL}  Set Variable
+    # ${EMAIL}.convert_to_lower_case
+    [Return]        ${EMAIL}
+
+Então é gerado um "${EMAIL}" automatico
+    Log To Console    ${EMAIL}
 
 
