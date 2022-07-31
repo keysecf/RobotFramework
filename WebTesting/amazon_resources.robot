@@ -53,9 +53,9 @@ Clicar no botão de pesquisa
     [Documentation]   UTILIZADA EM:    Caso de Teste 02 - Acesso ao menu "Eletrônicos
     Click Element    locator=nav-search-submit-button
     
-Veirificar o resultado da pesquisa, listando o produto "${NOME_PRODUTO}" pesquisado
+Verificar o resultado da pesquisa, listando o produto "${PRODUTO}" pesquisado
     [Documentation]   UTILIZADA EM:    Caso de Teste 02 - Acesso ao menu "Eletrônicos
-    Wait Until Element Contains    locator=//span[contains(.,'${NOME_PRODUTO}')]    text=${NOME_PRODUTO}
+    Wait Until Element Contains    locator=//span[contains(.,'${PRODUTO}')]    text=${PRODUTO}
     
 #  ======== TESTES GHERKIN BDD   ======== 
 Dado que estou na home page da Amazon.com.br
@@ -82,4 +82,22 @@ Então o título da página deve ficar "Amazon.com.br : Xbox Series S"
     Verificar se o título da página fica "Amazon.com.br : Xbox Series S"
 
 E um produto da linha "Xbox Series S" deve ser mostrado na página
-    Veirificar o resultado da pesquisa, listando o produto "Xbox Series S" pesquisado
+    Verificar o resultado da pesquisa, listando o produto "Xbox Series S" pesquisado
+
+#  ======== TESTES TAREFA 1 - DESAFIO ======== 
+
+Adicionar o produto "${PRODUTO}" no carrinho
+    Wait Until Element Contains    locator=//span[contains(.,'${PRODUTO}')]    text=${PRODUTO}
+    # Click Link    locator=(//a[contains(@href,'atf')])[2] 
+    Click Link    locator=(//a[contains(.,'${PRODUTO}')])[1]
+    Click Button    locator=add-to-cart-button
+
+Verificar se o produto foi adicionado com sucesso
+    Wait Until Element Is Visible    locator=//span[contains(.,'Adicionado ao carrinho')]
+
+Remover o produto do carrinho
+    Wait Until Element Is Visible    locator=//a[contains(.,'Carrinho')]
+    Click Element    locator=//a[contains(.,'Carrinho')]
+    Wait Until Element Is Visible    locator=//input[@value='Excluir']
+    Click Element    locator=//input[@value='Excluir']
+    
