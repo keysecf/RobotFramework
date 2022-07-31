@@ -7,6 +7,7 @@ ${URL}                   https://www.amazon.com.br/
 ${MENU_ELETRONICOS}      //a[@href='/Eletronicos-e-Tecnologia/b/?ie=UTF8&node=16209062011&ref_=nav_cs_electronics'][contains(.,'Eletrônicos')]
 ${HEADER_ELETRONICOS}    //h1[contains(.,'Eletrônicos e Tecnologia')]
 
+
 *** Keywords ***
 
 Abrir o Navegador
@@ -103,3 +104,24 @@ Remover o produto do carrinho
 
 Verificar se o carrinho fica vazio
     Wait Until Element Is Visible    locator=//h1[contains(.,'Seu carrinho de compras da Amazon está vazio.')]
+
+
+#  ======== TESTES TAREFA 2 - DESAFIO - BDD ======== 
+
+Quando adicionar o produto "${PRODUTO}" no carrinho
+    Digitar o nome de produto "${PRODUTO}" no campo de pesquisa
+    Clicar no botão de pesquisa
+    Adicionar o produto "${PRODUTO}" no carrinho
+
+Então o produto deve ser mostrado no carrinho
+    Verificar se o produto foi adicionado com sucesso
+
+E existe o produto "${PRODUTO}" no carrinho
+    Quando adicionar o produto "${PRODUTO}" no carrinho
+    Então o produto deve ser mostrado no carrinho
+
+Quando remover o produto "${PRODUTO}" do carrinho
+    Remover o produto do carrinho
+
+Então o carrinho deve ficar vazio
+    Verificar se o carrinho fica vazio
