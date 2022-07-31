@@ -32,7 +32,7 @@ Caso de Teste 04 - Remover Produto do Carrinho
     Adicionar o produto "${PRODUTO}" no carrinho
     Verificar se o produto foi adicionado com sucesso
     Remover o produto do carrinho
-    # Verificar se o carrinho fica vazio
+    Verificar se o carrinho fica vazio
 
 # Perguntas dessa tarefa
 # Mostre para nós os testes que conseguiu automatizar no site da Amazon.com.br e cole o código

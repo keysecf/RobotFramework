@@ -100,4 +100,6 @@ Remover o produto do carrinho
     Click Element    locator=//a[contains(.,'Carrinho')]
     Wait Until Element Is Visible    locator=//input[@value='Excluir']
     Click Element    locator=//input[@value='Excluir']
-    
+
+Verificar se o carrinho fica vazio
+    Wait Until Element Is Visible    locator=//h1[contains(.,'Seu carrinho de compras da Amazon está vazio.')]
