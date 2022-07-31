@@ -1,0 +1,25 @@
+Blocos IF - ELSE
+Blocos IF - ELSE no Robot Framework 4
+
+
+A partir da versão do Robot Framework 4.0 existe um novo jeito de fazer IFs e esse novo 
+jeito permite o uso de ELSE! Segue abaixo exemplo de uso:
+
+
+
+*** Test Cases ***
+Exemplo com dois blocos IF e ELSE
+    IF   ${status} > 0
+         Some keyword
+    ELSE
+         Another keyword
+    END
+
+
+Ou seja, agora temos dois blocos: IF e o ELSE, onde você pode chamar quantas keywords precisar! 
+O primeiro bloco IF é executado quando a condição for VERDADEIRA e, quando a condição for FALSA, 
+o bloco que estiver no ELSE será executado! Não se esqueça do END para fechar o conjunto dos dois blocos.
+
+
+
+Referência: http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#if-expression

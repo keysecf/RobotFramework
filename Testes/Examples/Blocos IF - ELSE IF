@@ -1,0 +1,34 @@
+Blocos IF - ELSE IF
+Blocos IF - ELSE IF no Robot Framework 4
+
+
+A partir da versão do Robot Framework 4.0 existe um novo jeito de fazer IFs e esse novo jeito permite 
+o uso de ELSE e ELSE IF aninhados, quantas vezes você precisar! Segue abaixo exemplo de uso:
+
+
+
+*** Test Cases ***
+Exemplo blocos IF - ELSE IF
+    IF   ${status} > 0
+        Positive keyword
+    ELSE IF    ${status} < 0
+        Negative keyword
+    ELSE IF    ${status} == 0
+        Zero keyword
+    ELSE
+        IF  ${status} == ${EMPTY}
+            Fail   O status está vazio!
+        ELSE
+            Fail   O status ${status} tem um valor desconhecido!
+        END
+    END
+
+
+Ou seja, agora temos diversos blocos: IF, ELSE IF e o ELSE, onde você pode chamar quantas keywords 
+precisar e criar quantos blocos precisar também com o ELSE IF! Inclusive você pode começar um novo 
+bloco de IF dentro de um bloco já existente, basta fechar com o END corretamente!!!! 
+Use quando você tem ações diferentes para diferentes condições.
+
+
+
+Referência: http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#if-expression

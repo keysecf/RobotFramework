@@ -6,7 +6,6 @@
     - Essa **keyword** deve gerar **uma palavra aleatória** que será usada na composição do e-mail(DICA: olhe na documentação da **Library String** ou **Library Faker** para achar uma keyword que gere essa palavra aleatória)
     - Junte o **nome + sobrenome + palavra aleatória + @testerobot.com** e retorne esse e-mail montado ao final da keyword. **Exemplo: MayFernandesWedd34Dd@testerobot.com**
 3. Crie um teste que vai chamar essa keyword, passar os argumentos esperados e armazenar o valor retornado em uma nova variável simples;
-
 4. Faça um Log To Console para imprimir essa variável simples.
 
 ___
