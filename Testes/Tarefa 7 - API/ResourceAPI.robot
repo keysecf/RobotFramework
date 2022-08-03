@@ -2,23 +2,10 @@
 Documentation   Documentação da API: https://fakerestapi.azurewebsites.net/swagger/ui/index#!/Books
 Library         RequestsLibrary
 Library         Collections
+Library         String
 
 *** Variable ***
 ${URL_API}      https://fakerestapi.azurewebsites.net/api/v1/
-&{BOOK_15}      id=15
-...             title=Book 15
-...             pageCount=1500
-
-&{BOOK_201}    id=201
-...            title=Teste
-...            description=teste descricao
-...            pageCount=100
-...            excerpt=frase de efeito
-...            publishDate=2022-08-03T10:34:50.930Z
-
-
-
-
 
 
 *** Keywords ***
@@ -28,27 +15,25 @@ Conectar a minha API
     ${HEADERS}     Create Dictionary    content-Type=application/json
     Set Suite Variable    ${HEADERS}
 
-
-
 #### Ações
 Requisitar todos os livros
     ${RESPOSTA}    GET On Session    fakeAPI    Books    
     Log            ${RESPOSTA.text}
     Set Test Variable    ${RESPOSTA}
 
-Requisitar o livro "${ID_LIVRO}"
-    ${RESPOSTA}    GET On Session    fakeAPI    Books/${ID_LIVRO}        
+Requisitar o livro "&{BOOK}"
+    ${RESPOSTA}    GET On Session    fakeAPI    Books/${BOOK.id}       
+    Log To Console    ${URL_API}Books/${BOOK.id}
     Log            ${RESPOSTA.text}
     Set Test Variable    ${RESPOSTA}
 
-Cadastrar um novo livro
+Cadastrar o livro "&{BOOK}"
     ${RESPOSTA}    POST On Session   fakeAPI    Books
-   ...                        data={"id":${BOOK_201.id},"title":"${BOOK_201.title}","description":"${BOOK_201.description}","pageCount":${BOOK_201.pageCount},"excerpt":"${BOOK_201.excerpt}","publishDate":"${BOOK_201.publishDate}"}
-   ...                           headers=${HEADERS}
-    Log            ${RESPOSTA.json}
-    Set Test Variable    ${RESPOSTA}
-
-
+   ...                        data={"id":${BOOK.id},"title":"${BOOK.title}","description":"${BOOK.description}","pageCount":${BOOK.pageCount},"excerpt":"${BOOK.excerpt}","publishDate":"${BOOK.publishDate}"}
+   ...                        headers=${HEADERS}
+    Log                       ${RESPOSTA.json}
+    Log To Console            ${RESPOSTA.json}
+    Set Test Variable         ${RESPOSTA}
 
 #### Conferências
 Conferir o status code
@@ -62,10 +47,29 @@ Conferir o reason
 Conferir se retorna uma lista com "${QTDE_LIVROS}" livros
     Length Should Be      ${RESPOSTA.json()}     ${QTDE_LIVROS}
 
-Conferir se retorna todos os dados corretos do livro 15
-    Dictionary Should Contain Item    ${RESPOSTA.json()}    id              ${BOOK_15.id}
-    Dictionary Should Contain Item    ${RESPOSTA.json()}    title           ${BOOK_15.title}
-    Dictionary Should Contain Item    ${RESPOSTA.json()}    pageCount       ${BOOK_15.pageCount}
-    Should Not Be Empty    ${RESPOSTA.json()["description"]}
-    Should Not Be Empty    ${RESPOSTA.json()["excerpt"]}
-    Should Not Be Empty    ${RESPOSTA.json()["publishDate"]}
+Conferir se retorna todos os dados corretos do livro "&{BOOK}"
+    Dictionary Should Contain Item    ${RESPOSTA.json()}    id              ${BOOK.id}
+    Dictionary Should Contain Item    ${RESPOSTA.json()}    title           ${BOOK.title}
+    Dictionary Should Contain Item    ${RESPOSTA.json()}    pageCount       ${BOOK.pageCount}
+    Should Not Be Empty               ${RESPOSTA.json()["description"]}
+    Should Not Be Empty               ${RESPOSTA.json()["excerpt"]}
+    Should Not Be Empty               ${RESPOSTA.json()["publishDate"]}
+    
+Alterar o livro "&{BOOK}" e conferir se retorna todos os dados alterados do livro
+    ${RESPOSTA}   PUT On Session       fakeAPI    Books/${BOOK.id} 
+    ...               data={"id":${BOOK.id},"title":"titulo","description":"descricao","pageCount":200,"excerpt":"teste frase","publishDate":"${BOOK.publishDate}"}
+    ...               headers=${HEADERS}
+    Log               ${RESPOSTA.text}
+    Log To Console    ${RESPOSTA.text}
+    Dictionary Should Contain Item    ${RESPOSTA.json()}    id              200
+    Dictionary Should Contain Item    ${RESPOSTA.json()}    title           titulo
+    Dictionary Should Contain Item    ${RESPOSTA.json()}    description     descricao
+    Dictionary Should Contain Item    ${RESPOSTA.json()}    pageCount       200
+    Dictionary Should Contain Item    ${RESPOSTA.json()}    excerpt         teste frase
+    Dictionary Should Contain Item    ${RESPOSTA.json()}    publishDate     2022-08-03T10:34:50.93Z
+
+Conferir se deleta o livro "&{BOOK}"
+    ${RESPOSTA}   DELETE On Session       fakeAPI    Books/${BOOK.id}
+    Status Should Be    200    ${RESPOSTA}
+     
+     
