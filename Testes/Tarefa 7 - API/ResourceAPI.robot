@@ -54,22 +54,30 @@ Conferir se retorna todos os dados corretos do livro "&{BOOK}"
     Should Not Be Empty               ${RESPOSTA.json()["description"]}
     Should Not Be Empty               ${RESPOSTA.json()["excerpt"]}
     Should Not Be Empty               ${RESPOSTA.json()["publishDate"]}
-    
+    Log     ${RESPOSTA.json()}
+    Log Dictionary    dictionary=&{BOOK}    level=INFO
+
 Alterar o livro "&{BOOK}" e conferir se retorna todos os dados alterados do livro
+
+# Novos dados do livro para alteração
+    Set To Dictionary    ${BOOK}    id             201
+    Set To Dictionary    ${BOOK}    title          titulo
+    Set To Dictionary    ${BOOK}    description    descricao
+    Set To Dictionary    ${BOOK}    pageCount      200
+    Set To Dictionary    ${BOOK}    excerpt        teste frase
+    Set To Dictionary    ${BOOK}    publishDate    2021-08-03T10:34:50.930Z
+
+
     ${RESPOSTA}   PUT On Session       fakeAPI    Books/${BOOK.id} 
-    ...               data={"id":${BOOK.id},"title":"titulo","description":"descricao","pageCount":200,"excerpt":"teste frase","publishDate":"${BOOK.publishDate}"}
+    ...               data={"id":${BOOK.id},"title":"${BOOK.title}","description":"${BOOK.description}","pageCount":${BOOK.pageCount},"excerpt":"${BOOK.excerpt}","publishDate":"${BOOK.publishDate}"}
     ...               headers=${HEADERS}
     Log               ${RESPOSTA.text}
-    Log To Console    ${RESPOSTA.text}
-    Dictionary Should Contain Item    ${RESPOSTA.json()}    id              200
-    Dictionary Should Contain Item    ${RESPOSTA.json()}    title           titulo
-    Dictionary Should Contain Item    ${RESPOSTA.json()}    description     descricao
-    Dictionary Should Contain Item    ${RESPOSTA.json()}    pageCount       200
-    Dictionary Should Contain Item    ${RESPOSTA.json()}    excerpt         teste frase
-    Dictionary Should Contain Item    ${RESPOSTA.json()}    publishDate     2022-08-03T10:34:50.93Z
+    Log Dictionary    dictionary=&{BOOK}    level=INFO
+    Set Suite Variable    ${RESPOSTA}
+    Set Suite Variable    &{BOOK}
+    Conferir se retorna todos os dados corretos do livro "&{BOOK}"
 
 Conferir se deleta o livro "&{BOOK}"
     ${RESPOSTA}   DELETE On Session       fakeAPI    Books/${BOOK.id}
     Status Should Be    200    ${RESPOSTA}
-     
-     
+    Should Be Empty     ${RESPOSTA.content}
